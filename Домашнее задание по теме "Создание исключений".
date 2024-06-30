@@ -1,0 +1,36 @@
+class InvalidDataException(Exception):
+    pass
+
+class ProcessingException(Exception):
+    pass
+def throw_exceptions(exception_type, message):
+    if exception_type == 'invalid_data':
+        raise InvalidDataException(message)
+    if exception_type == 'processing':
+        raise ProcessingException(message)
+    else:
+        raise ValueError("Неверный тип исключения")
+
+def call_with_exceptions():
+    try:
+        throw_exceptions('invalid_data', 'Неверные данные')
+    except InvalidDataException as e:
+        print(f"Обработка исключения InvalidDataException: {e}")
+        raise
+    except ProcessingException as e:
+        print(f"Обработка исключения ProcessingException: {e}")
+        raise
+    except ValueError as e:
+        print(f"Обработка исключения ValueError: {e}")
+
+def function_calling_throw_exceptions():
+    try:
+        call_with_exceptions()
+    except Exception as e:
+        print(f"Обработка исключения в function_calling_throw_exceptions: {e}")
+        raise
+
+try:
+    function_calling_throw_exceptions()
+except Exception as e:
+    print(f"Основная обработка исключения: {e}")
